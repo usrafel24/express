@@ -1,7 +1,8 @@
 const dbs=require('../database/db')
 const bcrypt=require('bcrypt')
+const path=require('path')
 // const { decrypt } = require('dotenv')
-const jwt=require('jsonwebtoken')
+// const jwt=require('jsonwebtoken')
 const register=async(req,res)=>{
     const {Name,Lname,Gmail,Password}=req.body
     if(!Name||!Lname||!Gmail||!Password){
@@ -10,13 +11,14 @@ const register=async(req,res)=>{
     }else{
          const Gmailcheck=await dbs.findOne({Gmail})
          if(Gmailcheck){ 
-            res.json({message:"Gmail is Already"})
+            res.send(`<h1 style="text-align: center; color:red;margin-top:250px">Gmail is Already</h1>`)
         console.log('Gmail is Already');
          }else{
             const security=await bcrypt.hash(Password,10)
             // console.log(security);
 const regis=await dbs.create({Name,Lname,Gmail,Password})
         res.json(regis)
+        
        
          }
 
@@ -88,4 +90,8 @@ res.status(200).render('home')
 const currentlogin=async(req,res)=>{
     res.status(200).render('login')
     }
-module.exports={register,deteted,login,current,currentlogin}
+    const GmailAlready=async(req,res)=>{
+        res.status(200).render(GmailAlready)
+        // res.sendFile(path.join(__dirname,'GmailAlready.html'))
+        }
+module.exports={register,deteted,login,current,currentlogin,GmailAlready}
