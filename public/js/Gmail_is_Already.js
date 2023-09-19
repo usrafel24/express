@@ -1,1 +1,0 @@
-alert('Gmail is Already')
