@@ -1,9 +1,7 @@
 const mongoose=require('mongoose')
 const dbs=mongoose.Schema(
     {
-         Id:{
-            type:Number
-         },
+        
          Name:{
             type:String,
          },
@@ -24,5 +22,34 @@ const dbs=mongoose.Schema(
     }
     )
     const db=mongoose.model('db',dbs)
-    module.exports=db
+
+//GOOGLE
+    const googleDbs=mongoose.Schema(
+      {
+          
+           googleName:String,
+             
+           googleId:String
+              
+       
+      }
+  
+  
+  
+  
+      
+      )
+      const googleDb=mongoose.model('googleDb',googleDbs)
+
+
+//FACEBOOK
+
+
+const facebookDbs=mongoose.Schema({
+   facebookId:String,
+   facebookName:String
+})
+const facebookDb=mongoose.model('facebookDb',facebookDbs)
+
+    module.exports={db,googleDb,facebookDb}
   

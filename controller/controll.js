@@ -1,11 +1,9 @@
 
-const dbs=require('../database/db')
+const {db}=require('../database/db')
+const nodemailer = require("nodemailer");
 
 // const bcrypt=require('bcrypt')
 
-const https=require('https')
-// const path=require('path')
-// const { decrypt } = require('dotenv')
 // const jwt=require('jsonwebtoken')
 const register=async(req,res)=>{
     const {Name,Lname,Gmail,Password}=req.body
@@ -13,7 +11,7 @@ const register=async(req,res)=>{
         res.json({message:"not found"})
         console.log('not found');
     }else{
-         const Gmailcheck=await dbs.findOne({Gmail})
+         const Gmailcheck=await db.findOne({Gmail})
          if(Gmailcheck){ 
             res.send(`<h1 style="text-align: center; color:red;margin-top:250px,font-size:40px">Gmail is Already</h1>`)
     
@@ -21,16 +19,63 @@ const register=async(req,res)=>{
          }else{
             // const security=await bcrypt.hash(Password,10)
             // console.log(security);
-        await dbs.create({Name,Lname,Gmail,Password})
+        await db.create({Name,Lname,Gmail,Password})
         // res.json(regis)
         // res.status(200).render('GmailAlready')
-        res.send('Already')
+
        
+
+       
+            // host: "smtp.forwardemail.net",
+      // port: 465,
+      // secure: true,
+    
+    
+   
+  const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth: {
+      user: "surafeld671@gmail.com",
+      pass: "ixmy dkbn scmb cgqe",
+    },
+  })
+//   ` <h1>Almost there!</h1>
+//   <h3>We've sent you an email at</h3>
+//   <p>Please follow the instructions in the email.</p>
+//   <a href="https://orthodox1221.netlify.app/">VERIFICATION EMAIL SEND
+//   <h3>${toMail}</h3>
+    
+      const toMail=req.body.Gmail
+      const info = {
+        from: 'surafeld671@gmail.com', // sender address
+        to: `${toMail}`, // list of receivers
+        subject: "Welcome ✔", // Subject line
+        text: "Hello world?", // plain text body
+        html: ` <h1>Almost there!</h1>
+        <a href="https://orthodox1221.netlify.app/">VERIFICATION EMAIL SEND`, // html body
+      }
+    transporter.sendMail(info,(error,info)=>{
+      if(error){
+          console.log(error);
+      }else{
+          console.log("Message sent: %s", info.messageId);
+          res.write(`<h1>A verification link to activate your key was sent to:${toMail}</h1>`)
+          res.send()
+      }
+    })
+    
+
+
+
+
+
+
+
          }
 
         
     }
-
+  
 }
 
 
@@ -39,12 +84,12 @@ const register=async(req,res)=>{
 
 const deteted=async(req,res)=>{
     const {id}=req.params
-    const deleted=await dbs.findByIdAndDelete(id,req.body)
+    const deleted=await db.findByIdAndDelete(id,req.body)
     if(!deleted){
         console.log('not found');
     }else{
        
-    const delet=await dbs.find({})
+    const delet=await db.find({})
     res.json({delet})
             console.log('delete');
 
@@ -60,14 +105,14 @@ res.json({message:"not found"})
         }
         else{
 
-            const gma=await dbs.findOne({Gmail})
-            const pas=await dbs.findOne({Password})
+            const gmaleCheck=await db.findOne({Gmail})
+            const passswordChack=await db.findOne({Password})
        
-    if (gma && pas) {
+    if (gmaleCheck && passswordChack) {
        
-        res.json({message:"yes"})
+        res.status(200).render('GmailAlready')
     }else{
-        res.send('no')
+        res.send('<h1> Sorry not match gmail and password please try again !!!')
     }
     }
             // const aaaa=await dbs.findOne({Gmail})
@@ -97,5 +142,8 @@ const currentlogin=async(req,res)=>{
     res.status(200).render('login')
     }
 
-   
+  
+        
+
+      
 module.exports={register,deteted,login,registral,currentlogin}

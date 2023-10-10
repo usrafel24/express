@@ -5,16 +5,31 @@
     background-color: #2F2E36;
    
     width: 280px;
-    height: 360px;
+    height: 490px;
     display: flex;
     justify-content: center;
     align-items: center;
-   margin-top: 100px;
+   margin-top: 80px;
    border-radius: 9px;
-   
+   text-align: center;
    
  
 
+}
+.container label{
+  color: rgb(137, 150, 82);
+  font-size: 24px;
+  /* font-weight: bold; */
+ 
+}
+.container form  a:hover{
+ /* border-bottom: 1px solid; */
+ color: #339988;
+}
+
+.container a{
+  color: #817b55;
+  text-decoration: none;
 }
 input{
     background-color: rgba(255, 252, 252, 0.199);
@@ -36,6 +51,7 @@ input::placeholder{
     font-size: small;
     font-weight: bold;
     opacity: 0.8;
+    
   
 
     
@@ -45,11 +61,13 @@ input{
 }
 input.submit{
     /* background-color: rgba(0, 0, 0, 0.199); */
-    background-color: #FDC917;
+    background-color: #fdc7176b;
     color: white;
 }
 input.submit:hover{
-    background-color: #0D2C27;
+    /* background-color: #0d2c27bd; */
+    color: #0d2c27;
+    font-weight: bold;
 }
 em{
     font-size: 14px;
@@ -133,3 +151,5 @@ em{
       transform:translateX(25%);
     }
   }
+
+ 

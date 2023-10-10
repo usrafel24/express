@@ -8,7 +8,7 @@ app.use(express.urlencoded({extended:false}))
 app.use(route)
 app.set('view engine','ejs')
 app.use(express.static('public'))
-const PORT=process.env.PORT || 3000
+const PORT=process.env.PORT || 9000
 const URL=process.env.MONGO_URL
 
 mongoose.connect(URL)
