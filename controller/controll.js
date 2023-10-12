@@ -59,8 +59,7 @@ const register=async(req,res)=>{
           console.log(error);
       }else{
           console.log("Message sent: %s", info.messageId);
-          res.write(`<h1>A verification link to activate your key was sent to:${toMail}</h1>`)
-          res.send()
+        res.render('gmailSend')
       }
     })
     
